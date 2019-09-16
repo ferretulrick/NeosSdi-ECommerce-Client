@@ -1,0 +1,87 @@
+<div class="container custom-container-2">
+
+    <select class="form-control"  id="power" [(ngModel)]="IdCustomerSelected" name="selectId" #t (change)="changeId(t.value)" >
+        <option value={{0}} >--All--</option>
+        <option *ngFor="let id of IdCustomers" [value]="id">{{ id }}</option>
+    </select>
+
+    <br/>
+    
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">CreationDate</th>
+                    <th scope="col">TotalPrice</th>
+                    <th scope="col">Customer ID</th>
+                    <th scope="col">Articles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of Orders">
+                    <td>{{order.Id}}</td>
+                    <td>{{order.CreationDate}}</td>
+                    <td>{{order.TotalPrice}}</td>
+                    <td>{{order.Customer.Id}}</td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let orderLine of order.OrderLines">
+                                    {{orderLine.ArticleLabel}} : {{orderLine.Quantity}} x {{orderLine.UnitPrice}} €
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <button class="form-control" (click)="deleteOrder(order)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    
+
+    <!-- <ngb-accordion [closeOthers]="true" activeIds="static-1">
+        <ngb-panel *ngFor="let order of Orders">
+            <ng-template ngbPanelTitle>
+                    <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">CreationDate</th>
+                                    <th scope="col">TotalPrice</th>
+                                    <th scope="col">Customer ID</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{order.Id}}</td>
+                                    <td>{{order.CreationDate}}</td>
+                                    <td>{{order.TotalPrice}}</td>
+                                    <td>{{order.Customer.Id}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                    <ul>
+                        <li *ngFor="let orderLine of order.OrderLines">
+                            Id:{{orderLine.Id}}, Quantity:{{orderLine.Quantity}}, UnitPrice:{{orderLine.UnitPrice}}, ArticleLabel:{{orderLine.ArticleLabel}}
+                        </li>
+                    </ul>
+            </ng-template>
+        </ngb-panel>
+    </ngb-accordion> -->
+
+    <ngb-pagination
+        [(page)]="page"
+        [pageSize]="pageSize"
+        [maxSize]="5"
+        [collectionSize]="NbOrders"
+        [boundaryLinks]="true"
+        [rotate]="true" 
+        [ellipses]="true" 
+        (pageChange)="loadOrders()">
+    </ngb-pagination>
+</div>

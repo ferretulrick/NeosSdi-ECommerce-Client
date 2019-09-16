@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Customer } from 'src/app/interfaces/customer';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {NgbModal, ModalDismissReasons, NgbModalOptions, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import * as $ from 'jquery';
 import { ValidateComponent } from '../validate/validate.component';
 
 
@@ -76,7 +75,7 @@ export class EditCustomerComponent implements OnInit, OnChanges {
     this.updateCustomer();
   }
 
-  open(){
+  open() {
     this.modalService.open(ValidateComponent);
   }
 }

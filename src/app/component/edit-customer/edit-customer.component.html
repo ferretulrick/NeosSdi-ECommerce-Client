@@ -1,0 +1,51 @@
+
+
+<!-- <p *ngIf="customerData == undefined">id selected : null</p>
+<p >id selected : {{customerData.Id}}</p> -->
+
+<!-- <div class="container custom-container" *ngIf="customerData">
+    <div class="col-md-12">
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <h3 class="mb-3 text-center">Edit Customer</h3>
+        
+            <div class="form-group">
+                <input type="text" formControlName="firstName" class="form-control" placeholder="FirstName">
+            </div>
+
+            <div class="form-group">
+            <input type="text" formControlName="lastName" class="form-control" placeholder="LastName">
+            </div>
+        
+            <div class="form-group">
+            <input type="text" formControlName="country" class="form-control" placeholder="Country">
+            </div>
+        
+            <div class="form-group">
+            <button class="btn btn-success btn-lg btn-block"  type="submit" [disabled]="!profileForm.valid">Edit Customer</button>
+            </div>
+        </form>
+    </div>
+</div> -->
+
+<div class="container custom-container" *ngIf="customerData">
+    <div class="col-md-12">
+        <h3 class="mb-3 text-center">Edit Customer</h3>
+    
+        <div class="form-group">
+            <input type="text" [(ngModel)]="customerData.FirstName" class="form-control" placeholder="FirstName">
+        </div>
+
+        <div class="form-group">
+        <input type="text" [(ngModel)]="customerData.LastName" class="form-control" placeholder="LastName">
+        </div>
+    
+        <div class="form-group">
+        <input type="text" [(ngModel)]="customerData.Country" class="form-control" placeholder="Country">
+        </div>
+        
+    
+        <div class="form-group">
+        <button class="btn btn-success btn-lg btn-block" (click)="updateCustomer()">update customer</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+
+<div class="container custom-container-2">
+
+    <!-- <div *ngIf="Customers.length !== 0"> -->
+    
+        <div class="col-md-12">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">FirstName</th>
+                    <th scope="col">LastName</th>
+                    <th scope="col">Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let customer of Customers">
+                    <td>{{customer.Id}}</td>
+                    <td>{{customer.FirstName}}</td>
+                    <td>{{customer.LastName}}</td>
+                    <td>{{customer.Country}}</td>
+                    <td>
+                        <button class="form-control" (click)="editCustomer(customer)">Edit</button>
+                        <br/>
+                        <button class="form-control" (click)="redirectOrder(customer.Id)" routerLinkActive="active">Orders</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+
+        <ngb-pagination
+            [(page)]="page"
+            [pageSize]="pageSize"
+            [maxSize]="5"
+            [collectionSize]="NbCustomers"
+            [boundaryLinks]="true"
+            [rotate]="true" 
+            [ellipses]="true" 
+            (pageChange)="loadCustomers()">
+
+        </ngb-pagination>
+    
+    <!-- </div> -->
+      
+</div>

@@ -15,14 +15,14 @@
             </thead>
             <tbody>
                 <tr *ngFor="let customer of Customers">
-                    <td>{{customer.Id}}</td>
-                    <td>{{customer.FirstName}}</td>
-                    <td>{{customer.LastName}}</td>
-                    <td>{{customer.Country}}</td>
+                    <td>{{customer.id}}</td>
+                    <td>{{customer.firstName}}</td>
+                    <td>{{customer.lastName}}</td>
+                    <td>{{customer.country}}</td>
                     <td>
                         <button class="form-control" (click)="editCustomer(customer)">Edit</button>
                         <br/>
-                        <button class="form-control" (click)="redirectOrder(customer.Id)" routerLinkActive="active">Orders</button>
+                        <button class="form-control" (click)="redirectOrder(customer.id)" routerLinkActive="active">Orders</button>
                     </td>
                 </tr>
             </tbody>

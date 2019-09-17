@@ -6,6 +6,8 @@ import { CustomersService } from 'src/app/services/customers.service';
 import { filter } from 'rxjs/operators';
 import { Filter } from 'src/app/interfaces/filter';
 import {Router, ActivatedRoute, Params} from '@angular/router';
+import {NgbModal, ModalDismissReasons, NgbModalOptions, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { Customer } from 'src/app/interfaces/customer';
 
 @Component({
   selector: 'app-orders',
@@ -15,20 +17,22 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 export class OrdersComponent implements OnInit {
 
   IdCustomers: number[];
+  customers: Customer[];
   Orders: Order[];
   NbOrders: number;
   IdCustomerSelected = 0;
-  filterId: Filter<number> = { Name: 'Id', Value: this.IdCustomerSelected};
+  filterId: Filter<number> = { name: 'Id', value: this.IdCustomerSelected};
 
   pageSize = 5;
   page = 1;
-  pagedQuery: PagedQuery = { NbItems: 10, StartIndex: 0, Filters: [] };
+  pagedQuery: PagedQuery = { nbItems: 10, startIndex: 0, filters: [] };
 
   constructor(
     public ordersService: OrdersService,
     public customersService: CustomersService,
     private activatedRoute: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    private modalService: NgbModal
     ) {}
 
   ngOnInit() {
@@ -41,18 +45,19 @@ export class OrdersComponent implements OnInit {
       this.IdCustomerSelected = Number(data.get('customerId'));
     });
     // this.IdCustomerSelected = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.filterId = { Name: 'Id', Value: this.IdCustomerSelected};
-    this.pagedQuery = { NbItems: this.pageSize, StartIndex: (this.page - 1) * this.pageSize, Filters: [this.filterId] };
+    this.filterId = { name: 'Id', value: this.IdCustomerSelected};
+    this.pagedQuery = { nbItems: this.pageSize, startIndex: (this.page - 1) * this.pageSize, filters: [this.filterId] };
     return this.ordersService.getOrders(this.pagedQuery).subscribe(data => {
-      this.Orders = data.Items;
-      this.NbOrders = data.ItemsCount;
+      this.Orders = data.items;
+      this.NbOrders = data.itemsCount;
     });
   }
 
   loadIdCustomers() {
-    const pagedQueryCustomers = { NbItems: 2048, StartIndex: 0, Filters: []};
+    const pagedQueryCustomers = { nbItems: 2048, startIndex: 0, filters: []};
     return this.customersService.getCustomers(pagedQueryCustomers).subscribe(data => {
-      this.IdCustomers = data.Items.map(o => o.Id);
+      this.IdCustomers = data.items.map(o => o.id);
+      this.customers = data.items;
     });
   }
 
@@ -72,15 +77,18 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  deleteOrder(order: Order) {
-    if (window.confirm('Delete?')) {
-      this.ordersService.deleteOrder(order.Id)
+  deleteOrder(order: Order, modal) {
+    this.modalService.open(modal).result.then((result) => {
+      console.log('yes');
+      this.ordersService.deleteOrder(order.id)
       .subscribe(data => {
-        this.router.navigate(['/orders/' + this.IdCustomerSelected]).then(() => {
+        this.router.navigate(['/orders'], { queryParams: { customerId: order.customer.id } }).then(() => {
           this.loadOrders();
         });
       });
-    }
+    }, (reason) => {
+      console.log('no');
+    });
   }
 
 }

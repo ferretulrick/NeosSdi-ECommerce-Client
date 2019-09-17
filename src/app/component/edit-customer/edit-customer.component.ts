@@ -39,43 +39,46 @@ export class EditCustomerComponent implements OnInit, OnChanges {
   }
 
   updateCustomer() {
-    if (window.confirm('Update?')) {
-      this.customersService.updateCustomer(this.customerData.Id, this.customerData)
-      .subscribe(() => {
-        // this.router.navigate(['/customers']);
-        this.updateEvent.emit(null);
-      });
-    }
+    this.customersService.updateCustomer(this.customerData.id, this.customerData)
+    .subscribe(() => {
+      // this.router.navigate(['/customers']);
+      this.updateEvent.emit(null);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (!changes.customerData.firstChange) {
       this.formGroup.patchValue({
-        firstName: changes.customerData.currentValue.FirstName,
-        lastName: changes.customerData.currentValue.LastName,
-        country: changes.customerData.currentValue.Country
+        firstName: changes.customerData.currentValue.firstName,
+        lastName: changes.customerData.currentValue.lastName,
+        country: changes.customerData.currentValue.country
       });
     }
   }
 
   get f() { return this.formGroup.controls; }
 
-  onSubmit() {
-    this.submitted = true;
+  onSubmit(content) {
 
-    // stop here if form is invalid
-    if (this.formGroup.invalid) {
-        return;
-    }
+    this.modalService.open(content).result.then((result) => {
+      console.log('yes');
+      this.submitted = true;
 
-    this.customerData.FirstName = this.formGroup.value.firstName;
-    this.customerData.LastName = this.formGroup.value.lastName;
-    this.customerData.Country = this.formGroup.value.country;
+      // stop here if form is invalid
+      if (this.formGroup.invalid) {
+          return;
+      }
 
-    this.updateCustomer();
+      this.customerData.firstName = this.formGroup.value.firstName;
+      this.customerData.lastName = this.formGroup.value.lastName;
+      this.customerData.country = this.formGroup.value.country;
+
+      this.updateCustomer();
+
+    }, (reason) => {
+      console.log('no');
+    });
   }
 
-  open() {
-    this.modalService.open(ValidateComponent);
-  }
+
 }

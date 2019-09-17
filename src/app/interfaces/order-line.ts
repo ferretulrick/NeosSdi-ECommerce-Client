@@ -1,7 +1,7 @@
 export interface OrderLine {
-    Id: number;
-    Quantity: number;
-    UnitPrice: number;
-    ArticleId: number;
-    ArticleLabel: string;
+    id: number;
+    quantity: number;
+    unitPrice: number;
+    articleId: number;
+    articleLabel: string;
 }

@@ -1,4 +1,4 @@
 export interface Filter<T> {
-    Name: string;
-    Value: T;
+    name: string;
+    value: T;
 }

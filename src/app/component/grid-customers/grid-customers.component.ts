@@ -15,7 +15,7 @@ export class GridCustomersComponent implements OnInit {
   NbCustomers: number;
   pageSize = 5;
   page = 1;
-  pagedQuery: PagedQuery = { NbItems: 10, StartIndex: 0, Filters: [] };
+  pagedQuery: PagedQuery = { nbItems: 10, startIndex: 0, filters: [] };
 
   @Output() customerEmit = new EventEmitter<Customer>();
 
@@ -30,10 +30,10 @@ export class GridCustomersComponent implements OnInit {
   }
 
   loadCustomers() {
-    this.pagedQuery = { NbItems: this.pageSize, StartIndex: (this.page - 1) * this.pageSize, Filters: [] };
+    this.pagedQuery = { nbItems: this.pageSize, startIndex: (this.page - 1) * this.pageSize, filters: [] };
     return this.customersService.getCustomers(this.pagedQuery).subscribe(data => {
-      this.Customers = data.Items;
-      this.NbCustomers = data.ItemsCount;
+      this.Customers = data.items;
+      this.NbCustomers = data.itemsCount;
     });
   }
 

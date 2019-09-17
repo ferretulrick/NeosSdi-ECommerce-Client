@@ -2,7 +2,7 @@
 <div class="container custom-container" *ngIf="customerData">
     <div class="col-md-12">
         <h3 class="mb-3 text-center">Edit Customer</h3>
-        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit(modalUpdate)">
             <div class="form-group">
                 <label>First Name</label>
                 <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
@@ -36,7 +36,18 @@
 </div>
 
 
-<button class="btn btn-outline-primary mr-2" (click)="open()">
-    <div>Open confirm modal</div>
-    <div class="text-dark" aria-hidden="true"><small>&times; button will be focused</small></div>
-</button>
+<ng-template #modalUpdate let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Update</h4>
+        <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p> Are you sure? </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="modal.close('Ok click')">Ok</button>
+      </div>
+</ng-template>

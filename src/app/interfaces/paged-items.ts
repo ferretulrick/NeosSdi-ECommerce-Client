@@ -1,4 +1,4 @@
 export interface PagedItems<T> {
-    Items: T[];
-    ItemsCount: number;
+    items: T[];
+    itemsCount: number;
 }

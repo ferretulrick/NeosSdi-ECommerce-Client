@@ -14,9 +14,9 @@ export class OrdersService {
   constructor(private http: HttpClient) { }
 
   getOrders(pagedQUery: PagedQuery): Observable<PagedItems<Order>> {
-    const idFilter = pagedQUery.Filters[0].Value;
+    const idFilter = pagedQUery.filters[0].value;
     return this.http.get<PagedItems<Order>>(environment.apiURL + '/Orders?StartIndex='
-        + pagedQUery.StartIndex + '&NbItems=' + pagedQUery.NbItems + '&idFilter=' + idFilter);
+        + pagedQUery.startIndex + '&NbItems=' + pagedQUery.nbItems + '&idFilter=' + idFilter);
   }
 
   deleteOrder(id) {

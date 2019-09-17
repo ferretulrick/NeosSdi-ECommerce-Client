@@ -17,7 +17,7 @@ export class CustomersService {
 
   getCustomers(pagedQUery: PagedQuery): Observable<PagedItems<Customer>> {
     return this.http.get<PagedItems<Customer>>(environment.apiURL
-      + '/Customers?StartIndex=' + pagedQUery.StartIndex + '&NbItems=' + pagedQUery.NbItems);
+      + '/Customers?StartIndex=' + pagedQUery.startIndex + '&NbItems=' + pagedQUery.nbItems);
   }
 
   getCustomer(id): Observable<Customer> {

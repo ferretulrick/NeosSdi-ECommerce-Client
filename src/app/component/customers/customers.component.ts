@@ -18,7 +18,7 @@ export class CustomersComponent implements OnInit {
   }
 
   customerSelected(c: Customer) {
-    this.customerSelect = {Id: c.Id, FirstName: c.FirstName, LastName: c.LastName, Country: c.Country};
+    this.customerSelect = {id: c.id, firstName: c.firstName, lastName: c.lastName, country: c.country};
   }
 
 }

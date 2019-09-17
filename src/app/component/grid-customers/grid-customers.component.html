@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let customer of Customers">
+                <tr *ngFor="let customer of customers">
                     <td>{{customer.id}}</td>
                     <td>{{customer.firstName}}</td>
                     <td>{{customer.lastName}}</td>
@@ -33,7 +33,7 @@
             [(page)]="page"
             [pageSize]="pageSize"
             [maxSize]="5"
-            [collectionSize]="NbCustomers"
+            [collectionSize]="nbCustomers"
             [boundaryLinks]="true"
             [rotate]="true" 
             [ellipses]="true" 

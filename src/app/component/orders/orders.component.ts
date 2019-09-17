@@ -16,12 +16,11 @@ import { Customer } from 'src/app/interfaces/customer';
 })
 export class OrdersComponent implements OnInit {
 
-  IdCustomers: number[];
   customers: Customer[];
-  Orders: Order[];
-  NbOrders: number;
-  IdCustomerSelected = 0;
-  filterId: Filter<number> = { name: 'Id', value: this.IdCustomerSelected};
+  orders: Order[];
+  nbOrders: number;
+  idCustomerSelected = 0;
+  filterId: Filter<number> = { name: 'Id', value: this.idCustomerSelected};
 
   pageSize = 5;
   page = 1;
@@ -42,21 +41,20 @@ export class OrdersComponent implements OnInit {
 
   loadOrders() {
     this.activatedRoute.queryParamMap.subscribe((data: any) => {
-      this.IdCustomerSelected = Number(data.get('customerId'));
+      this.idCustomerSelected = Number(data.get('customerId'));
     });
     // this.IdCustomerSelected = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.filterId = { name: 'Id', value: this.IdCustomerSelected};
+    this.filterId = { name: 'Id', value: this.idCustomerSelected};
     this.pagedQuery = { nbItems: this.pageSize, startIndex: (this.page - 1) * this.pageSize, filters: [this.filterId] };
     return this.ordersService.getOrders(this.pagedQuery).subscribe(data => {
-      this.Orders = data.items;
-      this.NbOrders = data.itemsCount;
+      this.orders = data.items;
+      this.nbOrders = data.itemsCount;
     });
   }
 
   loadIdCustomers() {
     const pagedQueryCustomers = { nbItems: 2048, startIndex: 0, filters: []};
     return this.customersService.getCustomers(pagedQueryCustomers).subscribe(data => {
-      this.IdCustomers = data.items.map(o => o.id);
       this.customers = data.items;
     });
   }

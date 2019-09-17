@@ -1,7 +1,7 @@
 <div class="container custom-container-2">
 
 
-    <select class="form-control"  id="power" [(ngModel)]="IdCustomerSelected" name="selectId" #t (change)="changeId(t.value)" >
+    <select class="form-control"  id="power" [(ngModel)]="idCustomerSelected" name="selectId" #t (change)="changeId(t.value)" >
         <option value={{0}} >--All--</option>
         <option *ngFor="let customer of customers" [value]="customer.id">{{customer.id}} : {{customer.firstName}} {{customer.lastName}}</option>
     </select>
@@ -20,14 +20,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let order of Orders">
+                <tr *ngFor="let order of orders">
                     <td>{{order.id}}</td>
                     <td>{{order.creationDate}}</td>
                     <td>{{order.totalPrice}}</td>
                     <td>{{order.customer.id}}</td>
                     <td>
                         <ul>
-                            <li *ngFor="let orderLine of order.OrderLines">
+                            <li *ngFor="let orderLine of order.orderLines">
                                     {{orderLine.articleLabel}} : {{orderLine.quantity}} x {{orderLine.unitPrice}} €
                             </li>
                         </ul>
@@ -44,7 +44,7 @@
         [(page)]="page"
         [pageSize]="pageSize"
         [maxSize]="5"
-        [collectionSize]="NbOrders"
+        [collectionSize]="nbOrders"
         [boundaryLinks]="true"
         [rotate]="true" 
         [ellipses]="true" 

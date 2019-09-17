@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 })
 export class GridCustomersComponent implements OnInit {
 
-  Customers: Customer[];
-  NbCustomers: number;
+  customers: Customer[];
+  nbCustomers: number;
   pageSize = 5;
   page = 1;
   pagedQuery: PagedQuery = { nbItems: 10, startIndex: 0, filters: [] };
@@ -26,14 +26,14 @@ export class GridCustomersComponent implements OnInit {
 
   ngOnInit() {
     this.loadCustomers();
-    console.log(this.Customers);
+    console.log(this.customers);
   }
 
   loadCustomers() {
     this.pagedQuery = { nbItems: this.pageSize, startIndex: (this.page - 1) * this.pageSize, filters: [] };
     return this.customersService.getCustomers(this.pagedQuery).subscribe(data => {
-      this.Customers = data.items;
-      this.NbCustomers = data.itemsCount;
+      this.customers = data.items;
+      this.nbCustomers = data.itemsCount;
     });
   }
 
